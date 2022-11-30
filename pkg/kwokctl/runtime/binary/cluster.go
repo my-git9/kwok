@@ -347,17 +347,15 @@ func (c *Cluster) Up(ctx context.Context) error {
 				adminKeyPath,
 			)
 		}
-	} else {
-		if conf.PrometheusPort != 0 {
-			kubeControllerManagerArgs = append(kubeControllerManagerArgs,
-				"--address",
-				localAddress,
-				"--port",
-				utils.StringUint32(kubeControllerManagerPort),
-				"--secure-port",
-				"0",
-			)
-		}
+	} else if conf.PrometheusPort != 0 {
+		kubeControllerManagerArgs = append(kubeControllerManagerArgs,
+			"--address",
+			localAddress,
+			"--port",
+			utils.StringUint32(kubeControllerManagerPort),
+			"--secure-port",
+			"0",
+		)
 	}
 
 	kubeSchedulerArgs := []string{
